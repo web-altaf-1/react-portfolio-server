@@ -6,15 +6,8 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // middleware 
-// app.use(cors());
-
-
-
-var corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200,
-}
-app.use(cors(corsOptions));
+app.use(cors({ origin: '*' }));
+app.options('*', cors());
 
 app.use(express.json());
 
