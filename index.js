@@ -6,10 +6,17 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // middleware 
-app.use(cors());
+// app.use(cors());
+
+
+
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+}
+app.use(cors(corsOptions));
+
 app.use(express.json());
-
-
 
 const uri = `mongodb+srv://${process.env.Create_React_App_Username}:${process.env.Create_React_App_Password}@cluster0.erceo3u.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -33,11 +40,11 @@ async function run() {
 
         app.get('/all-project/:id', async (req, res) => {
             const id = req.params.id;
-            const query = { _id : ObjectId(id) };
+            const query = { _id: ObjectId(id) };
 
             const service = await projectsCollection.findOne(query);
             res.send(service);
-            
+
         });
 
 
